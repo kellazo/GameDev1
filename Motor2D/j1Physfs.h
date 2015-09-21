@@ -20,6 +20,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//OpenFile
+	bool OpenFile(const char* file);
+	bool LoadImagefromBuffer(const char* file);
+
+private:
+	//var calculate size
+	Sint64  file_lenght;
+	void* file_data;
+
 	
 
 };
