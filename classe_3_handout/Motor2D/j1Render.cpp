@@ -231,3 +231,15 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
+
+// LOAD & SAVE
+bool j1Render::Load(pugi::xml_node& config)
+{
+	LOG("Loading game");
+	return true;
+}
+bool j1Render::Save(pugi::xml_node& config) const
+{
+	LOG("Saving game");
+	return true;
+}

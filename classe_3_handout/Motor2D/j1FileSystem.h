@@ -37,6 +37,10 @@ public:
 
 	unsigned int Save(const char* file, const char* buffer, unsigned int size) const;
 
+	// Load / Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 
 };

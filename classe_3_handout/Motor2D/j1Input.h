@@ -50,6 +50,8 @@ public:
 	// Gather relevant win events
 	bool GetWindowEvent(j1EventWindow ev);
 
+
+
 	// Check key states (includes mouse and joy buttons)
 	j1KeyState GetKey(int id) const
 	{
@@ -67,6 +69,10 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	// Load / Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
 
 private:
 	bool		windowEvents[WE_COUNT];

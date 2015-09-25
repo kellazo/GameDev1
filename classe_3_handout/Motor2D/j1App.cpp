@@ -308,8 +308,13 @@ bool j1App::SaveGameNow() const
 
 // TODO 3: Create a simulation of the xml file to read 
 
+//crear un fitxer xml nou state
+
 // TODO 4: Create a method to actually load an xml file
 // then call all the modules to load themselves
+
+//obrir state.xml amb el load
+
 
 // TODO 7: Create a method to save the current state
 // First fill a pugui::xml_document

@@ -156,3 +156,15 @@ void j1Input::GetMouseMotion(int& x, int& y)
 	x = mouse_motion_x;
 	y = mouse_motion_y;
 }
+
+// LOAD & SAVE
+bool j1Input::Load(pugi::xml_node& config)
+{
+	LOG("Loading game");
+	return true;
+}
+bool j1Input::Save(pugi::xml_node& config) const
+{
+	LOG("Saving game");
+	return true;
+}

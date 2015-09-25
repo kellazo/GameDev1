@@ -169,3 +169,14 @@ unsigned int j1FileSystem::Save(const char* file, const char* buffer, unsigned i
 
 	return ret;
 }
+// LOAD & SAVE
+bool j1FileSystem::Load(pugi::xml_node& config)
+{
+	LOG("Loading game");
+	return true;
+}
+bool j1FileSystem::Save(pugi::xml_node& config) const
+{
+	LOG("Saving game");
+	return true;
+}
