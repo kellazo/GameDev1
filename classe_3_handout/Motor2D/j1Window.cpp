@@ -112,3 +112,15 @@ uint j1Window::GetScale() const
 {
 	return scale;
 }
+
+// LOAD & SAVE
+bool j1Window::Load(pugi::xml_node& config)
+{
+	LOG("Loading game");
+	return true;
+}
+bool j1Window::Save(pugi::xml_node& config) const
+{
+	LOG("Saving game");
+	return true;
+}

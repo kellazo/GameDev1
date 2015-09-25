@@ -60,6 +60,15 @@ public:
 	}
 
 	// TODO 2: Create new virtual methods to Load and Save
+	//virtual methods significa crear a cada modul el metode load and save definirlos com el awake, el render ja esta falta omplir
+	virtual bool Load()
+	{
+		return true;
+	}
+	virtual bool Save() const
+	{
+		return true;
+	}
 
 public:
 

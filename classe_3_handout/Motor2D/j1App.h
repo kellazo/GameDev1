@@ -50,6 +50,9 @@ public:
 	// will one execute by the very end of the frame
 	// Load / Save
 
+	void Load(const char* file_name);
+	void Save(const char* file_name) const;
+
 private:
 
 	// Load config file
@@ -72,7 +75,7 @@ private:
 
 	// Load / Save
 	bool LoadGameNow();
-	bool SavegameNow() const;
+	bool SaveGameNow() const;
 
 public:
 
