@@ -31,7 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	// Reverse order of CleanUp
 	AddModule(fs);
 	AddModule(input);
-	AddModule(win);
+	AddModule(win); 
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(scene);
@@ -314,6 +314,32 @@ bool j1App::SaveGameNow() const
 // then call all the modules to load themselves
 
 //obrir state.xml amb el load
+bool j1App::LoadState()
+{
+	bool ret = true;
+
+	p2List_item<j1Module*>* item;
+	j1Module* pModule = NULL;
+
+	char* buf;
+	int size = App->fs->Load("state.xml", &buf);
+	pugi::xml_parse_result result = state_file.load_buffer(buf, size);
+	RELEASE(buf);
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file state.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+
+		state = config_file.child("state");
+		app_state = config.child("renderer");
+	}
+
+	return ret;
+}
 
 
 // TODO 7: Create a method to save the current state

@@ -80,3 +80,15 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+
+// LOAD & SAVE
+bool j1Scene::Load(pugi::xml_node& config)
+{
+	LOG("Loading game");
+	return true;
+}
+bool j1Scene::Save(pugi::xml_node& config) const
+{
+	LOG("Saving game");
+	return true;
+}

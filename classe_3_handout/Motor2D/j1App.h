@@ -77,6 +77,8 @@ private:
 	bool LoadGameNow();
 	bool SaveGameNow() const;
 
+	bool LoadState();
+
 public:
 
 	// Modules
@@ -106,6 +108,10 @@ private:
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	pugi::xml_document	state_file;
+	pugi::xml_node		state;
+	pugi::xml_node		app_state;
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S
