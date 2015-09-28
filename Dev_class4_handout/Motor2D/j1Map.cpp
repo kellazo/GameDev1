@@ -53,6 +53,15 @@ bool j1Map::CleanUp()
 	return true;
 }
 
+void j1Map::MapInfo()
+{
+	if (map_loaded == false)
+		return;
+
+
+
+}
+
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
@@ -75,6 +84,7 @@ bool j1Map::Load(const char* file_name)
 	{
 		// TODO 3: Create and call a private function to load and fill
 		// all your map data
+		MapInfo();
 	}
 
 	// TODO 4: Create and call a private function to load a tileset
