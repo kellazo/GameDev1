@@ -10,9 +10,9 @@
 struct Layer
 {
 	p2SString			name;
-	int					width;
-	int					height;
-	uint*				data; // de moment fem un punter sense signe
+	uint				width;
+	uint				height;
+	uint*				data; // de moment fem un punter sense signe que apunta a idnefinit son 4 bytes
 
 };
 
@@ -60,6 +60,9 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	// TODO 2: Add a list/array of layers to the map!
+	p2List<Layer*>	layers; // anar al cleanup i asegurar que tots els layers sesborraran de memoria correctament
+	//podem fer que les dades del layer sesborrin al mateix destructor de la estructura que acabem de fer
+
 };
 
 // ----------------------------------------------------
@@ -93,7 +96,8 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	// TODO 3: Create a method that loads a single layer
-	//bool LoadLayer(pugi::xml_node& node, your_layer_struct* layer);
+	bool LoadLayer(pugi::xml_node& node, Layer* layer);
+
 
 public:
 
