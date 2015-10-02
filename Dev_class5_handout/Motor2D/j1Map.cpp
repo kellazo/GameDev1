@@ -55,6 +55,16 @@ bool j1Map::CleanUp()
 	data.tilesets.clear();
 
 	// TODO 2: clean up all layer data
+	p2List_item<Layer*>* item2;
+	item2 = data.layers.start;
+
+	while (item2 != NULL)
+	{
+		RELEASE_ARRAY(item2->data->data);// esborra la dada el new del data [] layers
+		RELEASE(item2->data); // agafa de la macro p2Defs esboora mes net, esborra el punter de llista
+		item2 = item2->next;
+	}
+	data.tilesets.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -267,5 +277,41 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 	return ret;
 }
+
+bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer) //funico que aputna al node correcte del layer
+{
+	bool ret = true;
+
+	layer->name.create(node.attribute("name").as_string());
+	layer->width = node.attribute("tilewidth").as_int();
+	layer->height = node.attribute("tileheight").as_int();
+	//data quanta memoria necessitem per data? .. cuantes linies tenim a header son 750 deduïm que es el mateix que multiplciar el widt x heigh
+	//et dona un id per cad auns dels tiles que te el layer
+	//com alocatem memoria dinamicament al head en c++? es el new, allocatem unsinged ints quants em necesitem? widht x heigh
+	//auqest new ens retorna un punter al primer de tots, per tan posem data com a variable, i tenim la direccio al primer
+	layer->data = new uint[layer->width *layer->height];
+	//sempre que hi ha un new hem de fer un delete, si volem fer un delete d'aqueta memoria, fem serivr el release array pk te corxets.
+	
+	//mirar el cleanup i psar allar el delete release arrays de data->data
+
+	//ara el memset, el memset rrep un punter que anira a void(no sap quin tamany te cada una de les unitats que te cada byte) li pases data, quin valor li volem posar?
+	//ho posem a 0 en aquest cas, i ara ens demana la quantitat de bytes que hi ha allocatada en la memoria, per tan es w*h, es cuantitat denters a una quantitat de bytes, Quants bytes te el buffer? 750 * 4, cada enter son 4 bytes, multipliquem per el tamany de uint sizeof(uint)
+	//es molt optim el memset, es el substitut del for
+
+	memset(layer->data, 0, (layer->width *layer->height)*sizeof(uint));
+
+	// ara fer un for per iterar
+
+	for (uint i = 0; i < layer->width *layer->height; i++)
+	{
+		node.child("data").child("title").attribute("gid");
+	}
+
+
+
+	return ret;
+}
+
+
 
 

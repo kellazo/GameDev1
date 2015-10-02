@@ -7,6 +7,17 @@
 #include "j1Module.h"
 
 // TODO 1: Create a struct for the map layer
+struct Layer
+{
+	p2SString			name;
+	int					width;
+	int					height;
+	uint*				data; // de moment fem un punter sense signe
+
+};
+
+
+
 // TODO 6: Inside struct for the layer, create a short method to get the value of x,y
 // ----------------------------------------------------
 
