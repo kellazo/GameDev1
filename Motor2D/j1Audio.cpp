@@ -77,7 +77,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
 
-	if(music != NULL)
+	/*if(music != NULL)
 	{
 		if(fade_time > 0.0f)
 		{
@@ -119,7 +119,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		}
 	}
 
-	LOG("Successfully playing %s", path);
+	LOG("Successfully playing %s", path);*/
 	return ret;
 }
 

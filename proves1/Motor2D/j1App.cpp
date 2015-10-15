@@ -7,6 +7,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
+#include "FileSystem.h"
 
 #include "j1App.h"
 
@@ -15,20 +16,26 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
+	
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	filesystem = new FileSystem();
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+	
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(scene);
+	AddModule(filesystem);
+	
 
 	// render last to swap buffer
 	AddModule(render);
