@@ -32,26 +32,34 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	MapLayer* layer = data.layers.start->data;
 
-	for(int y = 0; y < data.height; ++y)
-	{
-		for(int x = 0; x < data.width; ++x)
+	//es visible
+
+	//if (layer->draw_visible)
+	//{
+	
+
+		for(int y = 0; y < data.height; ++y)
 		{
-			int tile_id = layer->Get(x, y);
-			if(tile_id > 0)
+			for(int x = 0; x < data.width; ++x)
 			{
-				// TODO 10(old): Complete the draw function
-				TileSet* tileset = data.tilesets.start->data;
+				int tile_id = layer->Get(x, y);
+				if(tile_id > 0)
+				{
+					// TODO 10(old): Complete the draw function
+					TileSet* tileset = data.tilesets.start->data;
 
-				SDL_Rect r = tileset->GetTileRect(tile_id);
-				iPoint pos = MapToWorld(x, y);
-
-				App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					SDL_Rect r = tileset->GetTileRect(tile_id);
+					iPoint pos = MapToWorld(x, y);
+				
+					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+				}
 			}
 		}
-	}
+	//}
 }
 
 // TODO 1: Add isometric map to world coordinates
@@ -229,7 +237,11 @@ bool j1Map::Load(const char* file_name)
 			MapLayer* l = item_layer->data;
 			LOG("Layer ----");
 			LOG("name: %s", l->name.GetString());
+			//manera del log de retornar si es false o true es un if el interrogant ?
+			//true pinta false no pinta layer
+			LOG("Layer visible: %s", (l->draw_visible)? "true":"false");
 			LOG("tile width: %d tile height: %d", l->width, l->height);
+
 			item_layer = item_layer->next;
 		}
 	}
@@ -373,6 +385,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
+	layer->draw_visible = node.child("properties").child("propierty").attribute("value").as_bool();
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)

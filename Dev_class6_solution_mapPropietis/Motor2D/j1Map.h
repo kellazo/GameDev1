@@ -13,6 +13,8 @@ struct MapLayer
 	int			width;
 	int			height;
 	uint*		data;
+	// es visible o no
+	bool		draw_visible;
 
 	MapLayer() : data(NULL)
 	{}
@@ -70,6 +72,8 @@ struct MapData
 	// TODO 2: Add a list/array of layers to the map!
 	p2List<MapLayer*>	layers;
 };
+
+
 
 // ----------------------------------------------------
 class j1Map : public j1Module
