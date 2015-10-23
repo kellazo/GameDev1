@@ -5,11 +5,16 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+//incluim p2dynarray per fer el todo5
+#include "p2DynArray.h"
+
 
 // ----------------------------------------------------
 struct Properties
 {
 	// TODO 5: Create a generic structure to hold properties
+
+	//amb arrays dynamics ho podem saber	p2DynArray<p2SString>* name;	p2DynArray<int>* value;
 	// TODO 7: Our custom properties should have one method
 	// to ask for the value of a custom property
 };

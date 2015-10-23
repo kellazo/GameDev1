@@ -60,9 +60,19 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
 	// TODO 3: Complete this method so we pick the right
 	// Tileset based on a tile id
-
+	//no se m'hauria de pintar res ja que es el segon i encara no lem posat al draw
+	//si sem pinta el primerlayer o a mitges es que esta malament
+	int i;
 	TileSet* set = data.tilesets.start->data;
-
+	for (i = 0; i <= id; i++)
+	{
+		if (id <= set->firstgid)
+		{
+			set = data.tilesets.start->next->data;
+			return set;
+		}
+		
+	}
 	return set;
 }
 
