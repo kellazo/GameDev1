@@ -34,6 +34,7 @@ void j1Map::Draw()
 
 	// TODO 4: Make sure we draw all the layers and not just the first one
 	MapLayer* layer = data.layers.start->data;
+	
 
 	for(int y = 0; y < data.height; ++y)
 	{
@@ -44,7 +45,7 @@ void j1Map::Draw()
 			{
 				TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-				if(tileset != NULL)
+				if (tileset != NULL)
 				{
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
@@ -53,6 +54,7 @@ void j1Map::Draw()
 				}
 			}
 		}
+		
 	}
 }
 
@@ -60,15 +62,16 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
 	// TODO 3: Complete this method so we pick the right
 	// Tileset based on a tile id
-	//no se m'hauria de pintar res ja que es el segon i encara no lem posat al draw
-	//si sem pinta el primerlayer o a mitges es que esta malament
-	int i;
+	//quin tile set es?
+	
+	
 	TileSet* set = data.tilesets.start->data;
-	for (i = 0; i <= id; i++)
+	for (int i = 0; i <= id; i++)
 	{
-		if (id <= set->firstgid)
+		if (id >= set->firstgid)
 		{
 			set = data.tilesets.start->next->data;
+			
 			return set;
 		}
 		
