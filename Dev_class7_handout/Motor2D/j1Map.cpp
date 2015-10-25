@@ -33,28 +33,34 @@ void j1Map::Draw()
 		return;
 
 	// TODO 4: Make sure we draw all the layers and not just the first one
-	MapLayer* layer = data.layers.start->data;
+	//MapLayer* layer = data.layers.start->data;
 	
+	p2List_item<MapLayer*>* item;
+	item = data.layers.start;
 
-	for(int y = 0; y < data.height; ++y)
+	while (item != NULL)
 	{
-		for(int x = 0; x < data.width; ++x)
+		for(int y = 0; y < data.height; ++y)
 		{
-			int tile_id = layer->Get(x, y);
-			if(tile_id > 0)
-			{
-				TileSet* tileset = GetTilesetFromTileId(tile_id);
-
-				if (tileset != NULL)
+			for(int x = 0; x < data.width; ++x)
+			{					
+				int tile_id = item->data->Get(x, y);  //layer->Get(x,y);
+				if(tile_id > 0)
 				{
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld(x, y);
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+	
+					if (tileset != NULL)
+					{
+						SDL_Rect r = tileset->GetTileRect(tile_id);
+						iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						
+					}
 				}
 			}
 		}
-		
+		item = item->next;
 	}
 }
 
@@ -66,15 +72,17 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	
 	
 	TileSet* set = data.tilesets.start->data;
+	
 	for (int i = 0; i <= id; i++)
 	{
-		if (id >= set->firstgid)
+		if (id <= set->firstgid)
 		{
+			
 			set = data.tilesets.start->next->data;
 			
 			return set;
 		}
-		
+
 	}
 	return set;
 }
