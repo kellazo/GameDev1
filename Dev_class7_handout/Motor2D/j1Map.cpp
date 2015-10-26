@@ -71,20 +71,28 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	//quin tile set es?
 	
 	
-	TileSet* set = data.tilesets.start->data;
 	
-	for (int i = 0; i <= id; i++)
+	//TileSet* set =  data.tilesets.start->data;
+	p2List_item<TileSet*>* set;
+	set = data.tilesets.start;
+	
+	while (set == NULL)
 	{
-		if (id <= set->firstgid)
+	
+	for (int i = 0; i < data.tilesets.count(); i++)
+	{
+		
+		if (id >= set->data->firstgid) //set->data->firstgid;
 		{
-			
-			set = data.tilesets.start->next->data;
-			
-			return set;
-		}
+			set = set->prev;
 
+				//set = data.tilesets.start->next->data;
+			return set->data;
+		}
+		set = set->next;
 	}
-	return set;
+	}
+	return set->data;
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
