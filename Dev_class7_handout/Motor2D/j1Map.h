@@ -13,8 +13,10 @@
 struct Properties
 {
 	// TODO 5: Create a generic structure to hold properties
+	
+	//amb arrays dynamics ho podem saber	p2DynArray<p2SString>* name;	p2DynArray<int>* default_value;
 
-	//amb arrays dynamics ho podem saber	p2DynArray<p2SString>* name;	p2DynArray<int>* value;
+	
 	// TODO 7: Our custom properties should have one method
 	// to ask for the value of a custom property
 };

@@ -35,33 +35,37 @@ void j1Map::Draw()
 	// TODO 4: Make sure we draw all the layers and not just the first one
 	//MapLayer* layer = data.layers.start->data;
 	
-	p2List_item<MapLayer*>* item;
-	item = data.layers.start;
+	p2List_item<MapLayer*>* item = data.layers.start;
 
-	while (item != NULL)
+	for (item = data.layers.start; item != NULL; item = item->next)
 	{
-		for(int y = 0; y < data.height; ++y)
+		MapLayer* layer = item->data;
+
+		for (int y = 0; y < data.height; ++y)
 		{
-			for(int x = 0; x < data.width; ++x)
-			{					
+			for (int x = 0; x < data.width; ++x)
+			{
 				int tile_id = item->data->Get(x, y);  //layer->Get(x,y);
-				if(tile_id > 0)
+				if (tile_id > 0)
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
-	
+
 					if (tileset != NULL)
 					{
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 
 						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-						
+
 					}
 				}
 			}
 		}
-		item = item->next;
+
 	}
+
+	
+	
 }
 
 TileSet* j1Map::GetTilesetFromTileId(int id) const
@@ -73,26 +77,22 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	
 	
 	//TileSet* set =  data.tilesets.start->data;
-	p2List_item<TileSet*>* set;
-	set = data.tilesets.start;
+	p2List_item<TileSet*>* item = data.tilesets.start;
+	TileSet* set = NULL;
 	
-	while (set == NULL)
+	while (item)
 	{
-	
-	for (int i = 0; i < data.tilesets.count(); i++)
-	{
-		
-		if (id >= set->data->firstgid) //set->data->firstgid;
+		if (id < item->data->firstgid) //set->data->firstgid;
 		{
-			set = set->prev;
-
-				//set = data.tilesets.start->next->data;
-			return set->data;
+			set = item->prev->data;
+			break;
+			//set = data.tilesets.start->next->data;
+			
 		}
-		set = set->next;
+		set = item->data;
+		item = item->next;
 	}
-	}
-	return set->data;
+	return set;
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
@@ -440,6 +440,16 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	bool ret = false;
 	// TODO 6: Fill in the method to fill the custom properties from 
 	// an xml_node
+	pugi::xml_node property = node.child("property");
+	if (property != NULL)
+	{
+		
+		int i = 0;
+		for (pugi::xml_node property = property.child("property"); property; property = property.next_sibling("property"))
+		{
+			
+		}
+	}
 
 	return ret;
 }
