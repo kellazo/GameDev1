@@ -17,28 +17,22 @@ void j1Timer::Start()
 {
 	// TODO 1: Fill Start(), Read(), ReadSec() methods
 	// they are simple, one line each!
-	Read();
+	//demana que et digui  els ticks quan crides la funcio start
+	started_at = SDL_GetTicks();
 	
 }
 
 // ---------------------------------------------
 uint32 j1Timer::Read() const
 {
-	
-	uint32 lastTime = 0, currentTime;
-	
-		currentTime = SDL_GetTicks();
-		if (currentTime > lastTime + 1000) {
-			printf("Report: %d\n", currentTime);
-			lastTime = currentTime;
-		}
 
-	return lastTime;
+	//vols saber els ticks en aquell moment d la execucio i es els tiques que tnes ara - els inicials
+		return SDL_GetTicks() - started_at;
 }
 
 // ---------------------------------------------
 float j1Timer::ReadSec() const
 {
-
-	return 0.0f;
+	//convertir els milisegons a segons, et retorna un valor float
+	return Read()/1000.0f;
 }

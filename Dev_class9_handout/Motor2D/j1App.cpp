@@ -15,13 +15,18 @@
 #include "j1Pathfinding.h"
 #include "j1App.h"
 
+
 // TODO 3: Measure the amount of ms that takes to execute:
 // App constructor, Awake, Start and CleanUp
 // LOG the result
 
+
+
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
+	//timer.Start();
+	ptimer.Start();
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();
@@ -45,6 +50,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// render last to swap buffer
 	AddModule(render);
+	
+	//uint32 temps = timer.Read();
+	//LOG("Temps en ms que tarda el metode App constructor: %f", temps);
+	double ptemps = ptimer.ReadMs();
+	LOG("Temps en ms que tarda el metode App constructor, ptimer: %f", ptemps);
 }
 
 // Destructor
@@ -71,6 +81,7 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
+	ptimer.Start();
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
@@ -99,13 +110,16 @@ bool j1App::Awake()
 			item = item->next;
 		}
 	}
-
+	double ptemps = ptimer.ReadMs();
+	LOG("Temps en ms que tarda el metode App Awake, ptimer: %f", ptemps);
 	return ret;
+	
 }
 
 // Called before the first frame
 bool j1App::Start()
 {
+	ptimer.Start();
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.start;
@@ -115,7 +129,10 @@ bool j1App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
+	double ptemps = ptimer.ReadMs();
+	LOG("Temps en ms que tarda el metode App Start, ptimer: %f", ptemps);
 	return ret;
+	
 }
 
 // Called each loop iteration
@@ -161,6 +178,7 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+
 }
 
 // ---------------------------------------------
@@ -174,13 +192,13 @@ void j1App::FinishUpdate()
 
 	// TODO 4: Now calculate:
 	// Amount of frames since startup
-	// Amount of time since game start (use a low resolution timer)
+	// Amount of time since game start (use a low resolution timer) //utilitzar el sdl_getticks
 	// Average FPS for the whole game life
 	// Amount of ms took the last update
 	// Amount of frames during the last second
-
-	float avg_fps = 0.0f;
-	float seconds_since_startup = 0.0f;
+	//mitjana de fps que pintes
+	float avg_fps = 0.0f;//fps_total/temps_en segons_total;
+	float seconds_since_startup = timer.ReadSec();
 	float dt = 0.0f;
 	uint32 last_frame_ms = 0;
 	uint32 frames_on_last_update = 0;
@@ -261,6 +279,7 @@ bool j1App::PostUpdate()
 // Called before quitting
 bool j1App::CleanUp()
 {
+	ptimer.Start();
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.end;
@@ -270,7 +289,10 @@ bool j1App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
+	double ptemps = ptimer.ReadMs();
+	LOG("Temps en ms que tarda el metode App Cleanup, ptimer: %f", ptemps);
 	return ret;
+	
 }
 
 // ---------------------------------------
